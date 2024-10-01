@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('level');
             $table->decimal('price');
+            $table->string('duration')->default('30 Days');
             $table->text('description')->nullable();
             $table->timestamps();
         });
