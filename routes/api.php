@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\v1\BaseController;
 use App\Http\Controllers\v1\InvoiceController;
 use App\Http\Controllers\v1\LoginController;
 use App\Http\Controllers\v1\LogoutController;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     Route::get('/plan',PlanController::class);
     Route::post('/login',LoginController::class);
+    Route::get('/login',[BaseController::class,'unauthenticated'])->name('login');
     Route::post('/register',RegisterController::class);
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/logout',LogoutController::class);
