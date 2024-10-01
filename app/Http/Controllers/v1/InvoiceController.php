@@ -34,7 +34,7 @@ class InvoiceController extends BaseController
         $invoice=Invoice::firstOrCreate([
             'subscription_id'=>$subscription->id,
         ],[
-            'link'=>'http://localhost/'
+            'link'=>'http://localhost:8000/api/v1/invoice/'.$subscription->id.'/download',
         ]);
         return new InvoiceResource($invoice);
     }

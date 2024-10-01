@@ -18,7 +18,7 @@ class InvoiceResource extends JsonResource
         $subscription=$this->subscription;
         return [
             'id' => $this->id,
-            'invoice_link' => $this->link,
+            'invoice_link' => 'http://localhost:8000/api/v1/invoice/'.$subscription->id.'/download',
             'plan' => $subscription->plan->name,
             'user' => UserResource::make($subscription->user),
             'subscription_id' => $subscription->id,

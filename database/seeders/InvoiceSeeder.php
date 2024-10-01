@@ -15,7 +15,7 @@ class InvoiceSeeder extends Seeder
     {
         Invoice::create([
             'subscription_id'=>3,
-            'link'=>"https://gmail.com/"
+            'link'=>"http://localhost:8000/api/v1/invoice/3/download",
         ]);
     }
 }
