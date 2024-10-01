@@ -15,8 +15,8 @@ class InvoiceController extends BaseController
      */
     public function index()
     {
-        $subscription=Subscription::where('user_id',Auth::id())->whereIn('status',['active', 'expired'])->orderBy('created_at','desc')->first();
-        return InvoiceResource::collection($subscription->invoices);
+        $invoices=Invoice::with('subscription')->get();
+        return InvoiceResource::collection($invoices->where('subscription.user_id',Auth::id()));
     }
 
     /**
