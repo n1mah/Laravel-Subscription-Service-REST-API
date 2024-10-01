@@ -4,6 +4,7 @@ namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSubscriptionRequest;
+use App\Http\Resources\SubscriptionResource;
 use App\Models\Subscription;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class SubscriptionController extends BaseController
      */
     public function index()
     {
-        return $this->sendResponse(Auth::user()->subscriptions,'Show All My Purchases');
+        return $this->sendResponse(SubscriptionResource::collection(Auth::user()->subscriptions),'Show All My Purchases');
     }
 
     /**
