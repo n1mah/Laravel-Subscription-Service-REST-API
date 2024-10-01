@@ -3,6 +3,7 @@
 use App\Http\Controllers\v1\InvoiceController;
 use App\Http\Controllers\v1\LoginController;
 use App\Http\Controllers\v1\LogoutController;
+use App\Http\Controllers\v1\PDFController;
 use App\Http\Controllers\v1\PlanController;
 use App\Http\Controllers\v1\RegisterController;
 use App\Http\Controllers\v1\SectionController;
@@ -28,6 +29,9 @@ Route::prefix('v1')->group(function () {
             Route::prefix('invoice')->controller(InvoiceController::class)->group(function () {
                 Route::get('/','index');
                 Route::get('/search/{subscription}','store');
+            });
+            Route::prefix('invoice')->controller(PDFController::class)->group(function () {
+                Route::get('/{subscription}/download','download');
             });
         });
     });
