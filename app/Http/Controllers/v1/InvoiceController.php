@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\v1;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreInvoiceRequest;
-use App\Http\Requests\UpdateInvoiceRequest;
 use App\Http\Resources\InvoiceResource;
 use App\Models\Invoice;
 use App\Models\Subscription;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 
-class InvoiceController extends Controller
+class InvoiceController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -25,9 +22,21 @@ class InvoiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request,string $subscription)
     {
-        //
+        $subscription=Subscription::find($subscription);
+        if (!$subscription)
+            return $this->sendError('Validation Error', 'The invoice does not Exist.',422);
+
+        if ($subscription->user->id!=Auth::id())
+            return $this->sendError('Error Invoice', 'The invoice does not belong to you.',422);
+
+        $invoice=Invoice::firstOrCreate([
+            'subscription_id'=>$subscription->id,
+        ],[
+            'link'=>'http://localhost/'
+        ]);
+        return new InvoiceResource($invoice);
     }
 
     /**

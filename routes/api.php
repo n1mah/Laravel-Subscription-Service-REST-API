@@ -27,6 +27,7 @@ Route::prefix('v1')->group(function () {
             });
             Route::prefix('invoice')->controller(InvoiceController::class)->group(function () {
                 Route::get('/','index');
+                Route::get('/search/{subscription}','store');
             });
         });
     });
