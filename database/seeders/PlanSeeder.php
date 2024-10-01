@@ -17,15 +17,17 @@ class PlanSeeder extends Seeder
                 'name'=>'Gold',
                 'price'=>999,
                 'description'=>'Gold Plan',
-            ],
-            [
-                'name'=>'Silver',
-                'price'=>999,
-                'description'=>'Silver Plan',
-            ],[
-                'name'=>'Platinum',
-                'price'=>999,
-                'description'=>'Platinum Plan',
             ]);
+        Plan::create([
+                'name'=>'Silver',
+                'price'=>499,
+                'description'=>'Silver Plan',
+            ]);
+        Plan::create([
+            'name'=>'Platinum',
+            'price'=>299,
+            'description'=>'Platinum Plan',
+        ]);
+
     }
 }
