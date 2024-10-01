@@ -7,6 +7,7 @@ use App\Http\Requests\StoreSubscriptionRequest;
 use App\Models\Subscription;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SubscriptionController extends BaseController
 {
@@ -15,7 +16,7 @@ class SubscriptionController extends BaseController
      */
     public function index()
     {
-        //
+        return $this->sendResponse(Auth::user()->subscriptions,'Show All My Purchases');
     }
 
     /**
