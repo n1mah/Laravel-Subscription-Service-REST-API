@@ -13,8 +13,9 @@ class InvoiceSeeder extends Seeder
      */
     public function run(): void
     {
-//        Invoice::create([
-//            ''
-//        ]);
+        Invoice::create([
+            'subscription_id'=>3,
+            'link'=>"https://gmail.com/"
+        ]);
     }
 }
