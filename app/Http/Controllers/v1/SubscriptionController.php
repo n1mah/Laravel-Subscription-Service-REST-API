@@ -27,6 +27,7 @@ class SubscriptionController extends BaseController
             ...$request->validated(),
             "start_date" =>Carbon::now() ,
             "end_date" =>Carbon::now()->addDays(30),
+            "status" =>"pending",
         ]);
         return $this->sendResponse('Subscription created successfully.', $subscription);
     }
