@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\v1\InvoiceController;
 use App\Http\Controllers\v1\LoginController;
 use App\Http\Controllers\v1\LogoutController;
 use App\Http\Controllers\v1\PlanController;
@@ -22,6 +23,9 @@ Route::prefix('v1')->group(function () {
         });
         Route::middleware(['checkSubscription'])->group(function () {
             Route::prefix('section')->controller(SectionController::class)->group(function () {
+                Route::get('/','index');
+            });
+            Route::prefix('invoice')->controller(InvoiceController::class)->group(function () {
                 Route::get('/','index');
             });
         });
