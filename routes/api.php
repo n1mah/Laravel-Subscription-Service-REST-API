@@ -4,6 +4,7 @@ use App\Http\Controllers\v1\BaseController;
 use App\Http\Controllers\v1\InvoiceController;
 use App\Http\Controllers\v1\LoginController;
 use App\Http\Controllers\v1\LogoutController;
+use App\Http\Controllers\v1\PaymentController;
 use App\Http\Controllers\v1\PDFController;
 use App\Http\Controllers\v1\PlanController;
 use App\Http\Controllers\v1\RegisterController;
@@ -18,6 +19,9 @@ Route::prefix('v1')->group(function () {
     Route::post('/login',LoginController::class);
     Route::get('/login',[BaseController::class,'unauthenticated'])->name('login');
     Route::post('/register',RegisterController::class);
+    Route::prefix('payment')->controller(PaymentController::class)->group(function () {
+        Route::get('webhook','payment_webhook')->name('payment.webhook');
+    });
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/logout',LogoutController::class);
         Route::prefix('subscription')->controller(SubscriptionController::class)->group(function () {
