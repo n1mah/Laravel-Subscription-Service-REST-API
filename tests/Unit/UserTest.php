@@ -54,4 +54,12 @@ class UserTest extends TestCase
             'status',
         ]);
     }
+    public function test_user_logout_unauthorised(): void
+    {
+        $response = $this->post('/api/v1/logout');
+        $response->assertStatus(401);
+        $response->assertJsonStructure([
+            'message',
+        ]);
+    }
 }
