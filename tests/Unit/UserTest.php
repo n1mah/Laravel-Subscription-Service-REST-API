@@ -30,4 +30,14 @@ class UserTest extends TestCase
             'status',
         ]);
     }
+
+    public function test_user_register_success(): void
+    {
+        $response = $this->post('/api/v1/register');
+        $response->assertStatus(401);
+        $response->assertJsonStructure([
+            'data' => [],
+            'status',
+        ]);
+    }
 }
