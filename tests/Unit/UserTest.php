@@ -40,4 +40,18 @@ class UserTest extends TestCase
             'status',
         ]);
     }
+
+    public function test_user_register_success(): void
+    {
+        $response = $this->post('/api/v1/register',[
+            'name' => 'operator 3',
+            'email' => 'operator4@gmail.com',
+            'password' => "Abcd1234",
+        ]);
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'data' => [],
+            'status',
+        ]);
+    }
 }
