@@ -17,7 +17,9 @@ class LoginTest extends TestCase
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([
-            'data','token'
+            'data'=>[
+                'token',
+            ]
         ]);
 
     }
