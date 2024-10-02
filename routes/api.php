@@ -26,6 +26,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/logout',LogoutController::class);
         Route::prefix('subscription')->controller(SubscriptionController::class)->group(function () {
             Route::get('/','index');
+            Route::get('/success','success');
             Route::post('/','store');
         });
         Route::middleware(['checkSubscription'])->group(function () {

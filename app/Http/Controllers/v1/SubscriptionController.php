@@ -19,6 +19,10 @@ class SubscriptionController extends BaseController
     {
         return $this->sendResponse(SubscriptionResource::collection(Auth::user()->subscriptions),'Show All My Purchases');
     }
+    public function success()
+    {
+        return $this->sendResponse(SubscriptionResource::collection(Auth::user()->subscriptions->where('status','active')),'Show All My Purchases');
+    }
 
     /**
      * Store a newly created resource in storage.
