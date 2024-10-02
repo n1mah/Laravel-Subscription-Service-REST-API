@@ -31,7 +31,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function test_user_register_success(): void
+    public function test_user_register_validation(): void
     {
         $response = $this->post('/api/v1/register');
         $response->assertStatus(401);
