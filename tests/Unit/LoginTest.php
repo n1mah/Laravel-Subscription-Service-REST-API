@@ -10,6 +10,7 @@ class LoginTest extends TestCase
     use RefreshDatabase;
     public function test_user_login_success(): void
     {
+        $this->artisan('migrate:refresh');
         $this->seed();
         $response = $this->post('/api/v1/login',[
             'email' => 'operator3@gmail.com',
