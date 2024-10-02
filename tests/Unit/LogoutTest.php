@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -11,9 +12,10 @@ class LogoutTest extends TestCase
     use RefreshDatabase;
     public function test_user_logout_success(): void
     {
+        $this->artisan('migrate:refresh');
+        $this->seed();
         $user=User::where('email','operator3@gmail.com')->first();
-        dd(User::all());
-        $response = $this->actingAs($user->id)->post('/api/v1/logout');
+        $response = $this->actingAs($user)->post('/api/v1/logout');
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'message',
