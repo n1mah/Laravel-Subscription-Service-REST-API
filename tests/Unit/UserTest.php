@@ -20,4 +20,14 @@ class UserTest extends TestCase
             'data' => [],
         ]);
     }
+
+    public function test_user_login_unauthorised(): void
+    {
+        $response = $this->post('/api/v1/login');
+        $response->assertStatus(401);
+        $response->assertJsonStructure([
+            'data' => [],
+            'status',
+        ]);
+    }
 }
