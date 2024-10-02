@@ -5,24 +5,21 @@ namespace App\Http\Controllers\v1;
 use App\Http\Resources\InvoiceResource;
 use App\Models\Invoice;
 use App\Models\Subscription;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 
 class InvoiceController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function index():AnonymousResourceCollection
     {
         $invoices=Invoice::with('subscription')->get();
         return InvoiceResource::collection($invoices->where('subscription.user_id',Auth::id()));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request,string $subscription)
+    public function store(Request $request,string $subscription): JsonResponse|InvoiceResource
     {
         $subscription=Subscription::find($subscription);
         if (!$subscription)
@@ -37,29 +34,5 @@ class InvoiceController extends BaseController
             'link'=>'http://localhost:8000/api/v1/invoice/'.$subscription->id.'/download',
         ]);
         return new InvoiceResource($invoice);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Invoice $invoice)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Invoice $invoice)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Invoice $invoice)
-    {
-        //
     }
 }

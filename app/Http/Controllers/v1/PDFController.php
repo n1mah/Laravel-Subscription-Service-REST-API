@@ -5,11 +5,14 @@ namespace App\Http\Controllers\v1;
 use App\Http\Controllers\Controller;
 use App\Models\Subscription;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class PDFController extends BaseController
 {
-    public function download(string $subscription){
+    public function download(string $subscription):Response|JsonResponse
+    {
         $subscription=Subscription::find($subscription);
         if (!$subscription)
             return $this->sendError('Validation Error', 'The invoice does not Exist.',422);

@@ -5,13 +5,14 @@ namespace App\Http\Controllers\v1;
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
 use App\Models\Subscription;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class PaymentController extends BaseController
 {
-    public function payment_webhook(Request $request)
+    public function payment_webhook(Request $request):JsonResponse
     {
         $payload = $request->all();
 

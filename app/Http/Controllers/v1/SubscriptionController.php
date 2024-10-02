@@ -7,27 +7,23 @@ use App\Http\Requests\StoreSubscriptionRequest;
 use App\Http\Resources\SubscriptionResource;
 use App\Models\Subscription;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SubscriptionController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function index(): JsonResponse
     {
         return $this->sendResponse(SubscriptionResource::collection(Auth::user()->subscriptions),'Show All My Purchases');
     }
-    public function success()
+    public function success(): JsonResponse
     {
         return $this->sendResponse(SubscriptionResource::collection(Auth::user()->subscriptions->where('status','active')),'Show All My Purchases');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreSubscriptionRequest $request)
+    public function store(StoreSubscriptionRequest $request): JsonResponse
     {
         if (Auth::id()!=$request->user_id)
             return $this->sendError('Error Subscription', 'The user ID does not belong to you.',422);
@@ -43,29 +39,5 @@ class SubscriptionController extends BaseController
             "status" =>"pending",
         ]);
         return $this->sendResponse('Subscription created successfully.', $subscription);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Subscription $subscription)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Subscription $subscription)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Subscription $subscription)
-    {
-        //
     }
 }
