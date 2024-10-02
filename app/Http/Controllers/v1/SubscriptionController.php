@@ -25,6 +25,13 @@ class SubscriptionController extends BaseController
      */
     public function store(StoreSubscriptionRequest $request)
     {
+        if (Auth::id()!=$request->user_id)
+            return $this->sendError('Error Subscription', 'The user ID does not belong to you.',422);
+
+            $active_subscription = Auth::user()->subscriptions()->where('status','active')->count();
+        if ($active_subscription>0)
+            return $this->sendError('You currently have an active subscription','You are not allowed to purchase another subscription',420);
+
         $subscription=Subscription::create([
             ...$request->validated(),
             "start_date" =>Carbon::now() ,
